@@ -1,13 +1,11 @@
-from flask import Flask, request
+from flask import Flask
 from flask.ext import restful
-from pymongo import MongoClient
-from tools.decorators import get_str_object_or_404
+import resources
 
 app = Flask(__name__)
 api = restful.Api(app)
 
-collection = MongoClient().db.coll
-
+"""
 class MongoWorld(restful.Resource):
     @get_str_object_or_404
     def get(self, id):
@@ -23,7 +21,12 @@ class MongoWorld(restful.Resource):
     def delete(self, id):
         return collection.remove({'mongo_id': id})
 
-api.add_resource(MongoWorld, '/<string:id>')
+api.add_resource(MongoWorld, '/<string:id>')"""
+
+api.add_resource(resources.Status, '/status/<string:id>')
+api.add_resource(resources.Data, '/data/<string:id>', '/data/<string:id>/<string:sensor>', defaults={'sensor':None})
+#api.add_resource(resources.Data, '/data/<string:id>/<string:sensor>')
+api.add_resource(resources.Command, '/command/<string:id>')
 
 if __name__ == '__main__':
     app.run(debug=True)

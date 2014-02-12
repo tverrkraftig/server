@@ -1,3 +1,5 @@
+import time
+
 def unicode_to_str(data):
     if isinstance(data, dict):
         ret = {}
@@ -11,3 +13,6 @@ def unicode_to_str(data):
         return ret
     else:
         return str(data)
+
+def get_microtime():
+    return int(round(time.time() * 1000))
