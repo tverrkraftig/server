@@ -59,15 +59,12 @@ class Data_Collection(restful.Resource):
 
         return {"commands": Command().get(id)}
 
-#TODO finally-something to fix lockups
 class Command(restful.Resource):
     def __init__(self):
         self.collection = mongodb.commands
-        # TODO rename for readability?
         self.id = hex(id(self))
 
     def __get_document_lock(self, id):
-        # TODO magic happens here, this creates a document if it does not exist
         document = self.collection.find_one({"device_id": id})
 
         if not document:
@@ -85,9 +82,12 @@ class Command(restful.Resource):
 
     def get(self, id):
         self.__get_document_lock(id)
-        document = self.collection.find_one({"device_id": id})
-        self.collection.update({"device_id": id}, {"$set": {"queue": []}})
-        self.__free_document_lock(id)
+
+        try:
+            document = self.collection.find_one({"device_id": id})
+            self.collection.update({"device_id": id}, {"$set": {"queue": []}})
+        finally:
+            self.__free_document_lock(id)
 
         return unicode_to_str(document["queue"])
 
@@ -96,6 +96,9 @@ class Command(restful.Resource):
         command["timestamp"] = get_microtime()
 
         self.__get_document_lock(id)
-        self.collection.update({"device_id": id}, {"$push": {"queue": command}})
-        self.__free_document_lock(id)
+
+        try:
+            self.collection.update({"device_id": id}, {"$push": {"queue": command}})
+        finally:
+            self.__free_document_lock(id)
         return {}
