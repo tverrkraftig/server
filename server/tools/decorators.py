@@ -7,7 +7,7 @@ def get_str_object_or_404(action):
     def wrapper(*args, **kwargs):
         result = action(*args, **kwargs)
         if not result:
-            return {}, 404
+            return {}, 404, {'Access-Control-Allow-Origin': '*'}
         else:
-            return unicode_to_str(result)
+            return unicode_to_str(result), 200, {'Access-Control-Allow-Origin': '*'}
     return wrapper
