@@ -7,7 +7,7 @@ def get_str_object_or_404(action):
     def wrapper(*args, **kwargs):
         result = action(*args, **kwargs)
         if not result:
-            return Response(response = {}, status = 404, mimetype = "application/json")
+            return {}, 404
         else:
-            return Response(response = unicode_to_str(result), mimetype = "application/json")
+            return unicode_to_str(result)
     return wrapper
