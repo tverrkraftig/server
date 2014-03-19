@@ -1,6 +1,7 @@
 from flask import Response
 from functools import wraps
 from helpers import unicode_to_str
+from crypto import Signature
 # gotta import the pycrypto stuff
 
 def get_str_object_or_404(action):
@@ -26,7 +27,7 @@ def verify_signature(request):
 			# some function that gets the public key associated with this ID
 			key = get_key_for_user(userID)
 			h = SHA.new(json)
-			verifier = PKCS1_v1_5.new(key)
+			verifier = PKCS1_PSS.new(key)
 			userAllowed = verifier.verify(h, signature)
 			if not userAllowed:
 				# request should be denied
