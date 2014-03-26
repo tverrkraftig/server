@@ -120,7 +120,7 @@ class Command(restful.Resource):
             self.collection.update({"device_id": id}, {"$push": {"queue": command}})
         finally:
             self.__free_document_lock(id)
-        return {}
+        return {}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'accept, content-type, origin'}
 
     def options(self, id):
         return {'Allow': 'GET,POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET', 'Access-Control-Allow-Headers': 'accept, content-type, origin'}
