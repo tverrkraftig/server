@@ -6,6 +6,10 @@ from tools.helpers import get_microtime, unicode_to_str
 
 mongodb = MongoClient().db
 
+class OptionsResrouce(restful.Resource):
+    def options(self):
+        return {'Allow': 'GET,POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET'}
+
 class Status(restful.Resource):
     def __init__(self):
         self.collection = mongodb.status
@@ -23,8 +27,11 @@ class Status(restful.Resource):
 
         return {"commands": Command().get(id)}
 
-    def options(self):
-        return {'Allow': 'POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET'}
+    def options(self, id):
+        return {'Allow': 'GET,POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET'}
+
+class StatusOptions(OptionsResrouce):
+    pass
 
 class Data(restful.Resource):
     def __init__(self):
@@ -44,8 +51,11 @@ class Data(restful.Resource):
 
         return {"commands": Command().get(id)}
 
-    def options(self):
-        return {'Allow': 'POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET'}
+    def options(self, id):
+        return {'Allow': 'GET,POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET'}
+
+class DataOptions(OptionsResrouce):
+    pass
 
 class Data_Collection(restful.Resource):
     def __init__(self):
@@ -65,8 +75,8 @@ class Data_Collection(restful.Resource):
 
         return {"commands": Command().get(id)}
 
-    def options(self):
-        return {'Allow': 'POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET'}
+    def options(self, id):
+        return {'Allow': 'GET,POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET'}
 
 class Command(restful.Resource):
     def __init__(self):
@@ -112,5 +122,8 @@ class Command(restful.Resource):
             self.__free_document_lock(id)
         return {}
 
-    def options(self):
-        return {'Allow': 'POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET'}
+    def options(self, id):
+        return {'Allow': 'GET,POST'}, 200, {'Allow': 'GET,POST', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET'}
+
+class CommandOptions(OptionsResrouce):
+    pass
