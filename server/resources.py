@@ -8,7 +8,7 @@ mongodb = MongoClient().db
 
 class OptionsResrouce(restful.Resource):
     def options(self):
-        return {'Allow': 'GET,POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET'}
+        return {'Allow': 'GET,POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET', 'Access-Control-Allow-Headers': 'accept, content-type, origin'}
 
 class Status(restful.Resource):
     def __init__(self):
@@ -28,7 +28,7 @@ class Status(restful.Resource):
         return {"commands": Command().get(id)}
 
     def options(self, id):
-        return {'Allow': 'GET,POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET'}
+        return {'Allow': 'GET,POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET', 'Access-Control-Allow-Headers': 'accept, content-type, origin'}
 
 class StatusOptions(OptionsResrouce):
     pass
@@ -52,7 +52,7 @@ class Data(restful.Resource):
         return {"commands": Command().get(id)}
 
     def options(self, id):
-        return {'Allow': 'GET,POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET'}
+        return {'Allow': 'GET,POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET', 'Access-Control-Allow-Headers': 'accept, content-type, origin'}
 
 class DataOptions(OptionsResrouce):
     pass
@@ -76,7 +76,7 @@ class Data_Collection(restful.Resource):
         return {"commands": Command().get(id)}
 
     def options(self, id):
-        return {'Allow': 'GET,POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET'}
+        return {'Allow': 'GET,POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET', 'Access-Control-Allow-Headers': 'accept, content-type, origin'}
 
 class Command(restful.Resource):
     def __init__(self):
@@ -123,7 +123,7 @@ class Command(restful.Resource):
         return {}
 
     def options(self, id):
-        return {'Allow': 'GET,POST'}, 200, {'Allow': 'GET,POST', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET'}
+        return {'Allow': 'GET,POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET', 'Access-Control-Allow-Headers': 'accept, content-type, origin'}
 
 class CommandOptions(OptionsResrouce):
     pass
