@@ -23,6 +23,9 @@ class Status(restful.Resource):
 
         return {"commands": Command().get(id)}
 
+    def options(self):
+        return {'Allow': 'POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET'}
+
 class Data(restful.Resource):
     def __init__(self):
         self.collection = mongodb.data
@@ -41,6 +44,9 @@ class Data(restful.Resource):
 
         return {"commands": Command().get(id)}
 
+    def options(self):
+        return {'Allow': 'POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET'}
+
 class Data_Collection(restful.Resource):
     def __init__(self):
         self.collection = mongodb.data
@@ -58,6 +64,9 @@ class Data_Collection(restful.Resource):
             self.collection.update({'device_id': id, 'sensor': sensor_data['sensor']}, sensor_data, upsert=True)
 
         return {"commands": Command().get(id)}
+
+    def options(self):
+        return {'Allow': 'POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET'}
 
 class Command(restful.Resource):
     def __init__(self):
@@ -102,3 +111,6 @@ class Command(restful.Resource):
         finally:
             self.__free_document_lock(id)
         return {}
+
+    def options(self):
+        return {'Allow': 'POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET'}
