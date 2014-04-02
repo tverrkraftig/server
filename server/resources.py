@@ -25,7 +25,8 @@ class Status(restful.Resource):
 
         self.collection.update({'device_id': id}, data, upsert=True)
 
-        return {"commands": Command().get(id)}
+        #return {"commands": Command().get(id)}
+        return {"commands": []}
 
     def options(self, id):
         return {'Allow': 'GET,POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET', 'Access-Control-Allow-Headers': 'accept, content-type, origin'}
@@ -49,7 +50,8 @@ class Data(restful.Resource):
         data["sensor"] = sensor
         self.collection.update({'device_id': id, 'sensor': sensor}, data, upsert=True)
 
-        return {"commands": Command().get(id)}
+        #return {"commands": Command().get(id)}
+        return {"commands": []}
 
     def options(self, id):
         return {'Allow': 'GET,POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET', 'Access-Control-Allow-Headers': 'accept, content-type, origin'}
@@ -73,7 +75,8 @@ class Data_Collection(restful.Resource):
             sensor_data["timestamp"] = get_microtime()
             self.collection.update({'device_id': id, 'sensor': sensor_data['sensor']}, sensor_data, upsert=True)
 
-        return {"commands": Command().get(id)}
+        #return {"commands": Command().get(id)}
+        return {"commands": []}
 
     def options(self, id):
         return {'Allow': 'GET,POST'}, 200, {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST,GET', 'Access-Control-Allow-Headers': 'accept, content-type, origin'}
